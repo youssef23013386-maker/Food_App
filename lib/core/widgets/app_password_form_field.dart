@@ -29,6 +29,11 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
       validator: widget.validator,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        hintStyle: TextStyle(
+          color: Color(0xffA0A5BA),
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
         suffixIcon:
             widget.suffixIcon ??
             IconButton(
@@ -39,6 +44,7 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
               },
               icon: Icon(
                 obscureText ? Icons.visibility_off : Icons.remove_red_eye,
+                color: Color(0xffB4B9CA),
               ),
             ),
 

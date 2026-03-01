@@ -77,6 +77,7 @@ class LoginCard extends StatelessWidget {
               const SizedBox(height: 8),
               CustomPasswordFormField(
                 hintText: '* * * * * * * * * *',
+                
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
@@ -141,7 +142,7 @@ class LoginCard extends StatelessWidget {
               /// Login Button
               Center(
                 child: MainButton(
-                  text: 'Login',
+                  text: 'LOG IN',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       // Login logic

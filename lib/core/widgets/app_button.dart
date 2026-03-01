@@ -32,9 +32,9 @@ class MainButton extends StatelessWidget {
         text,
         style:
             textStyle ??
-            TextStyles.body.copyWith(
+            TextStyles.caption1.copyWith(
               color: AppColors.backgroundColor,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w700,
             ),
       ),
     );
