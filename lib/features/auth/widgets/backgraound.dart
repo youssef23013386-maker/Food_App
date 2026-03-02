@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:food_app/core/constants/app_images.dart';
 import 'package:food_app/core/styles/app_colors.dart';
 import 'package:food_app/core/styles/app_text_styles.dart';
+import 'package:food_app/core/widgets/appbackButton.dart';
 
-class passwordbackground extends StatelessWidget {
-  const passwordbackground();
+class AuthBackground extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final bool showBackButton;
+  final String backgroundImage;
+
+  const AuthBackground({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    this.showBackButton = false,
+    required this.backgroundImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +28,19 @@ class passwordbackground extends StatelessWidget {
         child: Stack(
           children: [
             SvgPicture.asset(
-              AppImages.patternBackgroundorgSvg,
+              backgroundImage,
               fit: BoxFit.contain,
               width: double.infinity,
               alignment: Alignment.topCenter,
             ),
+
+            if (showBackButton)
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 16,
+                left: 20,
+                child: AppBackButton(onTap: () => Navigator.pop(context)),
+              ),
+
             Positioned(
               top: 100,
               left: 0,
@@ -29,7 +48,7 @@ class passwordbackground extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Forgot Password',
+                    title,
                     textAlign: TextAlign.center,
                     style: TextStyles.headline.copyWith(
                       color: AppColors.backgroundColor,
@@ -37,7 +56,7 @@ class passwordbackground extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Please sign in to your existing account',
+                    subtitle,
                     textAlign: TextAlign.center,
                     style: TextStyles.title.copyWith(
                       color: AppColors.backgroundColor,
