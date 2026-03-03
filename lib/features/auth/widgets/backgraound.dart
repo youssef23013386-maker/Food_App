@@ -7,6 +7,7 @@ import 'package:food_app/core/widgets/appbackButton.dart';
 class AuthBackground extends StatelessWidget {
   final String title;
   final String subtitle;
+  final String title_for_email;
   final bool showBackButton;
   final String backgroundImage;
 
@@ -14,6 +15,7 @@ class AuthBackground extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
+    required this.title_for_email,
     this.showBackButton = false,
     required this.backgroundImage,
   });
@@ -62,6 +64,16 @@ class AuthBackground extends StatelessWidget {
                       color: AppColors.backgroundColor,
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  Text(
+                    title_for_email,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.title.copyWith(
+                      color: AppColors.backgroundColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  
                 ],
               ),
             ),

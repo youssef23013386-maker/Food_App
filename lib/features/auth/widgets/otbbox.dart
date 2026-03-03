@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_app/core/styles/app_colors.dart';
+import 'package:food_app/core/styles/app_text_styles.dart';
 
 class OtpSection extends StatefulWidget {
   final Function(String)? onCompleted;
@@ -17,15 +20,28 @@ class _OtpSectionState extends State<OtpSection> {
   final List<FocusNode> focusNodes =
       List.generate(4, (_) => FocusNode());
 
+  int _secondsRemaining = 50;
+  Timer? _timer;
+
   @override
-  void dispose() {
-    for (var c in controllers) {
-      c.dispose();
-    }
-    for (var f in focusNodes) {
-      f.dispose();
-    }
-    super.dispose();
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _secondsRemaining = 50;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        setState(() {
+          _secondsRemaining--;
+        });
+      } else {
+        timer.cancel(); 
+      }
+    });
   }
 
   void _onChanged(String value, int index) {
@@ -51,23 +67,59 @@ class _OtpSectionState extends State<OtpSection> {
   }
 
   @override
+  void dispose() {
+    _timer?.cancel();
+    for (var c in controllers) {
+      c.dispose();
+    }
+    for (var f in focusNodes) {
+      f.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// Title + Resend
+        /// Title + Resend + Timer
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
+          children: [
+            const Text(
               "CODE",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: AppColors.darkblackColor,
               ),
             ),
-            Text(
-              "Resend in 50s",
-              style: TextStyle(color: Colors.grey),
+            Row(
+              children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                  onPressed: () {
+                    _startTimer(); // يعيد العد بس
+                  },
+                  child: Text(
+                    'Resend',
+                    style: TextStyles.caption1.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.darkblackColor,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  'in $_secondsRemaining sec',
+                  style: TextStyles.caption1.copyWith(
+                    color: AppColors.darkblackColor,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -88,8 +140,8 @@ class _OtpSectionState extends State<OtpSection> {
 
   Widget _otpBox(int index) {
     return SizedBox(
-      width: 60,
-      height: 60,
+      width: 62,
+      height: 62,
       child: TextField(
         controller: controllers[index],
         focusNode: focusNodes[index],
@@ -103,15 +155,15 @@ class _OtpSectionState extends State<OtpSection> {
         decoration: InputDecoration(
           counterText: "",
           filled: true,
-          fillColor: Colors.grey.shade200,
+          fillColor: Color (0xffF0F5FA),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
-              color: Colors.orange,
+              color: AppColors.primaryColor,
               width: 2,
             ),
           ),

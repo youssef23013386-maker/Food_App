@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:food_app/core/constants/app_images.dart';
 import 'package:food_app/core/styles/app_colors.dart';
 import 'package:food_app/core/widgets/app_button.dart';
+import 'package:food_app/features/auth/screens/login_screen.dart';
 import 'package:food_app/features/auth/widgets/backgraound.dart';
 import 'package:food_app/features/auth/widgets/otbbox.dart';
 
@@ -34,6 +35,7 @@ class _verification_screenState extends State<verification_screen> {
               const AuthBackground(
                 title: 'Verification',
                 subtitle: 'We have sent a code to your email',
+                title_for_email: ' example@gmail.com ',
                 showBackButton: true,
                 backgroundImage: AppImages.patternBackgroundorgSvg,
               ),
@@ -57,24 +59,27 @@ class _verification_screenState extends State<verification_screen> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          /// Email
-                        OtpSection(),
+                          OtpSection(),
 
                           const SizedBox(height: 30),
 
-                          /// Send Code Button
                           Center(
                             child: MainButton(
                               text: 'VERIFY',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  // Send reset code logic
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginPage(),
+                                    ),
+                                  );
                                 }
                               },
                             ),
                           ),
 
-                          const SizedBox(height: 340),
+                          const SizedBox(height: 300),
                         ],
                       ),
                     ),

@@ -39,6 +39,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 subtitle: 'Please sign in to your existing account',
                 showBackButton: true,
                 backgroundImage: AppImages.patternBackgroundorgSvg,
+                title_for_email: '',
               ),
 
               Align(
@@ -60,7 +61,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          /// Email
                           Text(
                             'Email',
                             style: TextStyles.body.copyWith(
@@ -85,22 +85,24 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                           const SizedBox(height: 30),
 
-                          /// Send Code Button
                           Center(
                             child: MainButton(
                               text: 'SEND CODE',
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const verification_screen(),
-                                  ),
-                                );
+                                if (formKey.currentState!.validate()) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const verification_screen(),
+                                    ),
+                                  );
+                                }
                               },
                             ),
                           ),
 
-                          const SizedBox(height: 340),
+                          const SizedBox(height: 335),
                         ],
                       ),
                     ),

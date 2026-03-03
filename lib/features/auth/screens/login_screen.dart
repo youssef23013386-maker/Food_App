@@ -11,6 +11,7 @@ import 'package:food_app/core/widgets/custom_svg_picture.dart';
 import 'package:food_app/features/auth/screens/forget_password_screen.dart';
 import 'package:food_app/features/auth/screens/signup_screen.dart';
 import 'package:food_app/features/auth/widgets/backgraound.dart';
+import 'package:food_app/features/main/main_app_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               const AuthBackground(
                 title: 'Log In',
                 subtitle: 'Please sign in to your existing account',
-                backgroundImage: AppImages.patternBackgroundSvg,
+                backgroundImage: AppImages.patternBackgroundSvg, title_for_email: '',
               ),
 
               Align(
@@ -62,9 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          /// Email
                           Text(
-                            'Email',
+                            'EMAIL',
                             style: TextStyles.body.copyWith(
                               color: AppColors.ightColor,
                               fontWeight: FontWeight.w400,
@@ -87,9 +87,8 @@ class _LoginPageState extends State<LoginPage> {
 
                           const SizedBox(height: 20),
 
-                          /// Password
                           Text(
-                            'Password',
+                            'PASSWORD',
                             style: TextStyles.body.copyWith(
                               color: AppColors.ightColor,
                               fontWeight: FontWeight.w400,
@@ -111,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
 
                           const SizedBox(height: 10),
 
-                          /// Remember + Forgot
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -163,13 +161,18 @@ class _LoginPageState extends State<LoginPage> {
 
                           const SizedBox(height: 10),
 
-                          /// Login Button
                           Center(
                             child: MainButton(
                               text: 'LOG IN',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  // Login logic
+                                   Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MainAppScreen(),
+                                    ),
+                                  );
                                 }
                               },
                             ),
@@ -177,7 +180,6 @@ class _LoginPageState extends State<LoginPage> {
 
                           const SizedBox(height: 20),
 
-                          /// Sign Up
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -187,6 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                                   color: AppColors.sidetextColor,
                                 ),
                               ),
+                              SizedBox(width: 20,),
                               TextButton(
                                 style: TextButton.styleFrom(
                                     padding: EdgeInsets.zero),
@@ -200,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 },
                                 child: Text(
-                                  'Sign Up',
+                                  'SIGN UP',
                                   style: TextStyles.caption1.copyWith(
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.primaryColor,
